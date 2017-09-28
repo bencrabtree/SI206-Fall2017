@@ -1,18 +1,10 @@
-import os
-import filecmp
-from pprint import pprint
+import re
 
 myFile = open('mbox-short.txt', 'r')
-fromLines = []
-
-for element in myFile.readlines():
-    if 'From' in element:
-        fromLines.append(element)
-
-name = ""
-names = []
-for statement in fromLines:
-    name = statement.split()[1].split('@')[0]
-    names.append(name)
-
-pprint (names)
+for line in myFile.readlines():
+    if re.search('From', line):
+        print (line)
+        numbers = re.findall('[0-9]+', line)
+        print (numbers)
+        name = re.findall('(\S*)@', line)
+        print (name)
